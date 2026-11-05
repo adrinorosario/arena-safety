@@ -1703,7 +1703,7 @@ plot_board_and_policy(board, visits / visits.sum(), chosen_action=chosen,
                       title="MCTS finds the diagonal win")
 # the search tree the simulations grew: edge thickness ~ visit count, terminal leaves in yellow
 plot_mcts_tree(root, max_depth=2, title="MCTS search tree (after 32 sims)")
-assert chosen == 4, "MCTS should find the diagonal win"
+tests.test_diagonal_win(visits)
 
 # ! CELL TYPE: markdown
 # ! FILTERS: []
@@ -2161,8 +2161,8 @@ def compute_az_loss(
     Returns:
         scalar tensor: the mean total loss
     """
-    assert value.shape == z.shape
-    assert logits.shape == pi.shape
+    assert value.shape == z.shape, f"value {tuple(value.shape)} and z {tuple(z.shape)} should both be (N,)"
+    assert logits.shape == pi.shape, f"logits {tuple(logits.shape)} and pi {tuple(pi.shape)} should both be (N, 7)"
     # EXERCISE
     # raise NotImplementedError()
     # END EXERCISE
@@ -2695,6 +2695,20 @@ Time to see how good it is! `utils` gives you two ready-made ways to play your t
 > ```bash
 > ssh -L 8080:localhost:8080 name-of-my-remote-machine -N
 > ```
+
+Both functions take a `sims` argument (default 64): the number of MCTS simulations the agent runs per
+move. With `sims=1` the single simulation just visits the move with the highest prior, so you're playing
+the raw policy network with no search. Try `play_web(model, env, sims=1)`, and compare how much stronger
+the agent gets as you increase `sims`.
+
+<details>
+<summary>Question - what would <code>sims=0</code> do, and why?</summary>
+
+The agent plays the move with the most root visits. With no simulations every visit count is zero, and
+`argmax` of an all-zero tensor is 0, so the agent always picks column 0, whatever the board looks like:
+the network's priors are computed but never turned into visits.
+
+</details>
 '''
 
 # ! CELL TYPE: code
