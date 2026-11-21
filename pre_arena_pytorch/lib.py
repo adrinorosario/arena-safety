@@ -1,3 +1,8 @@
+from chalk import *
+import chalk
+
+if "vstrut" not in globals():
+    vstrut = lambda h: strut(0, h)
 
 
         
