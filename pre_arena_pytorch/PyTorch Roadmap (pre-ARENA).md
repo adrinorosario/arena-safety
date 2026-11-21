@@ -13,7 +13,6 @@ The target is ARENA's own library prerequisite list, met without documentation l
 | You have run training loops before (nanoGPT, TRL) but through high-level code | Stage 4 shrinks if you can already write a loop unaided |
 | Compute is the M2 Air plus free Colab | Nothing here needs a GPU |
 
-- [ ] Open question: how many hours a week can this take alongside coursework?
 
 ## Working method
 
