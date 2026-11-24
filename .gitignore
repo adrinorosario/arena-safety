@@ -106,3 +106,4 @@ chapter*/exercises/**/arena_lib/
 
 # `pip install -e .` (the install scripts) writes the package's metadata here
 *.egg-info/
+.DS_Store
